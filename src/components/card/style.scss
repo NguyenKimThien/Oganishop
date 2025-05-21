@@ -1,0 +1,89 @@
+.featured__item {
+    margin-bottom: 50px;
+
+    &:hover {
+        .featured__item__pic {
+            .featured__item__pic__hover {
+                bottom: 20px;
+            }
+        }
+    }
+
+    &__pic {
+        height: 270px;
+        position: relative;
+        overflow: hidden;
+        background-position: center center;
+
+        &__hover {
+            position: absolute;
+            left: 0;
+            bottom: -50px;
+            width: 100%;
+            text-align: center;
+            transition: all 0.5s;
+            padding-right: 15px;
+
+            li {
+                list-style: none;
+                display: inline-block;
+                margin-right: 6px;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+
+                &:hover {
+                    a {
+                        background: #7fad39;
+                        border-color: #7fad39;
+
+                        i {
+                            color: #ffffff;
+                            transform: rotate(360deg);
+                        }
+                    }
+                }
+
+                a {
+                    font-size: 16px;
+                    color: #1c1c1c;
+                    height: 40px;
+                    width: 40px;
+                    line-height: 40px;
+                    text-align: center;
+                    border: 1px solid #ebebeb;
+                    background: #ffffff;
+                    display: block;
+                    border-radius: 50%;
+                    transition: all 0.5s;
+
+                    i {
+                        position: relative;
+                        transform: rotate(0);
+                        transition: all 0.3s;
+                    }
+                }
+            }
+        }
+    }
+
+    &__text {
+        text-align: center;
+        padding-top: 15px;
+        padding-right: 15px;
+        h6 {
+            margin-bottom: 10px;
+
+            a {
+                color: #252525;
+                text-decoration: none;
+            }
+        }
+
+        h5 {
+            color: #252525;
+            font-weight: 700;
+        }
+    }
+}
