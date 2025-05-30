@@ -1,9 +1,16 @@
-import MainLayout from "./layouts/MainLayout";
-import HomePage from "./pages/HomePage";
+
+import { Route, Routes, BrowserRouter } from "react-router-dom";
+import routes from "./routers/router";
 
 function App() {
   return (
-    <HomePage/>
+    <BrowserRouter>
+        <Routes>
+          {routes.map((route, index) => (
+            <Route key={index} path={route.path} element={route.element} />
+          ))}
+        </Routes>
+    </BrowserRouter>
   );
 }
 

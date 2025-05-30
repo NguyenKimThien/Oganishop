@@ -54,7 +54,6 @@ const CategorySlider = () => {
       },
     ],
   };
-  console.log(slideData.length);
   return (
     <Slider {...settings}>
       {slideData.map((item, index) => (

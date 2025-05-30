@@ -4,6 +4,7 @@ import { formatCurrency } from "../../../utils/formatCurrency";
 import "./style.scss";
 import ItemProduct from "../../../components/card";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 const Feature = () => {
   const filterControl = [
     "All",
@@ -21,7 +22,6 @@ const Feature = () => {
             .map((c) => c.toUpperCase())
             .includes(activeControl.toUpperCase())
         );
-  console.log(activeControl);
   return (
     <section className="featured spad">
       <div className="container">
@@ -35,7 +35,7 @@ const Feature = () => {
                 {filterControl.map((control, index) => (
                   <li
                     key={`${control}-${index}`}
-                    className={activeControl == control ? "active" : ""}
+                    className={activeControl === control ? "active" : ""}
                     onClick={() => setActiveControl(control)}
                   >
                     {control}
@@ -51,13 +51,14 @@ const Feature = () => {
               <div
                 className="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat"
                 key={index}
-              >
-                <ItemProduct
-                  src={product.src}
-                  text={product.text}
-                  price={formatCurrency(product.price)}
-                  key={`${product.price}-${index}`}
-                />
+              >    
+                  <ItemProduct
+                    idToDetail={product.id}
+                    src={product.src}
+                    text={product.text}
+                    price={formatCurrency(product.price)}
+                    key={`${product.price}-${index}`}
+                  />
               </div>
             );
           })}

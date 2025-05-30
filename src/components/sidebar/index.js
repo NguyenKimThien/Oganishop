@@ -1,7 +1,9 @@
-import { FaArrowDown, FaBars, FaChevronDown } from "react-icons/fa";
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.scss'
 import { useState } from "react";
+import { FaBars, FaChevronDown } from 'react-icons/fa';
+
 const SideBar = () => {
     const [onMenu , setOnMenu] = useState(false);
     const OpenMenu = () => {
