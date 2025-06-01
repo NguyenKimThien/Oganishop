@@ -7,6 +7,7 @@ import listProduct from "../../data/product";
 import { FaFacebook, FaInstagram, FaPinterest, FaStar, FaStarHalfAlt, FaTwitter } from "react-icons/fa";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { useState } from "react";
+import { useCart } from "../../context/CartContext";
 const DetailPage = () => {
   const { id } = useParams();
   const product = listProduct.find((item) => item.id === parseInt(id));
@@ -17,6 +18,11 @@ const DetailPage = () => {
   const incQuanity = () => {
     setQuanity(quanity => quanity + 1);
   }
+  const { addToCart } = useCart();
+  const handleAddToCart = () => {
+    addToCart(product, quanity);
+    alert('Sản phẩm đã được thêm vào giỏ hàng!');
+  };
   return (
     <MainLayout>
       <section className="breadcrumb-section set-bg">
@@ -72,7 +78,7 @@ const DetailPage = () => {
                     </div>
                   </div>
                 </div>
-                <a href="#" className="primary-btn">
+                <a href="#" className="primary-btn" onClick={handleAddToCart}>
                   ADD TO CARD
                 </a>
                 <a href="#" className="heart-icon">

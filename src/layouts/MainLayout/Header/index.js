@@ -16,9 +16,9 @@ import "./style.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "../../../assets/img/logo.png";
 import imgLanguage from "../../../assets/img/language.png";
-import {useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-
+import { useCart } from "../../../context/CartContext";
 
 const Header = () => {
   const [username, setUsername] = useState("");
@@ -29,11 +29,15 @@ const Header = () => {
     if (userEmail) {
       setUsername(userEmail);
     }
-  },[]);
+  }, []);
   const openMenu = () => {
     setOnMenu((onMenu) => !onMenu);
     document.body.classList.add("over_hid");
   };
+  const { cartItems } = useCart();
+
+  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+
   return (
     <div>
       {/* <div id="preloder">
@@ -62,9 +66,9 @@ const Header = () => {
               </a>
             </li>
             <li>
-              <a href="#">
-                <FaShoppingBag /> <span>3</span>
-              </a>
+              <Link to="/cart">
+                <FaShoppingBag /> <span>{totalItems}</span>
+              </Link>
             </li>
           </ul>
           <div className="header__cart__price">
@@ -84,8 +88,12 @@ const Header = () => {
               </li>
             </ul>
           </div>
-          <div className="header__top__right__auth">          
-            <Link to="/login"> <FaUser />{username === ""?"Login" : username }</Link>
+          <div className="header__top__right__auth">
+            <Link to="/login">
+              {" "}
+              <FaUser />
+              {username === "" ? "Login" : username}
+            </Link>
           </div>
         </div>
         <nav className="humberger__menu__nav mobile-menu">
@@ -221,9 +229,9 @@ const Header = () => {
                     </a>
                   </li>
                   <li>
-                    <a href="#">
-                      <FaShoppingBag /> <span>3</span>
-                    </a>
+                    <Link to="/cart">
+                      <FaShoppingBag /> <span>{totalItems}</span>
+                    </Link>
                   </li>
                 </ul>
                 <div className="header__cart__price">
