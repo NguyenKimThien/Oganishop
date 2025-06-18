@@ -20,11 +20,12 @@ import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useCart } from "../../../context/CartContext";
 import { toast } from "react-toastify";
+import { formatCurrency } from "../../../utils/formatCurrency";
 const Header = () => {
   const [username, setUsername] = useState("");
   const [onMenu, setOnMenu] = useState(false);
   const location = useLocation();
-  const { cartItems } = useCart();
+  const { cartItems, favoriteItems, total } = useCart();
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   const isLogin = username === "";
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ const Header = () => {
         },
       });
     } else {
-       navigate('/cart');
+      navigate("/cart");
     }
   };
   useEffect(() => {
@@ -73,18 +74,18 @@ const Header = () => {
         <div className="humberger__menu__cart">
           <ul>
             <li>
-              <a href="#">
-                <FaHeart /> <span>1</span>
-              </a>
+              <Link to="/favorite">
+                <FaHeart /> <span>{favoriteItems.length}</span>
+              </Link>
             </li>
             <li>
               <Link to="/cart">
-                <FaShoppingBag /> <span>{totalItems}</span>
+                <FaShoppingBag /> <span>{cartItems.length}</span>
               </Link>
             </li>
           </ul>
           <div className="header__cart__price">
-            item: <span>$150.00</span>
+            item: <span>{formatCurrency(total)}</span>
           </div>
         </div>
         <div className="humberger__menu__widget">
@@ -237,17 +238,19 @@ const Header = () => {
                 <ul>
                   <li>
                     <button>
-                      <FaHeart /> <span>0</span>
+                      <Link to="/favorite">
+                        <FaHeart /> <span>{favoriteItems.length}</span>
+                      </Link>
                     </button>
                   </li>
-                  <li>                   
+                  <li>
                     <button onClick={handleClickCart}>
                       <FaShoppingBag /> <span>{totalItems}</span>
                     </button>
                   </li>
                 </ul>
                 <div className="header__cart__price">
-                  item: <span>$150.00</span>
+                  item: <span>{formatCurrency(total)}</span>
                 </div>
               </div>
             </div>

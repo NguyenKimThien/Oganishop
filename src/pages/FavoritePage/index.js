@@ -4,15 +4,29 @@ import SideBar from "../../components/sidebar";
 import Search from "../../components/search";
 import './style.scss';
 import { formatCurrency } from "../../utils/formatCurrency";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
-import { useEffect } from "react";
-const CartPage = () => {
-  const { cartItems, updateQuantity, removeFromCart , setTotal} = useCart();
-  const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  useEffect(() => {
-     setTotal(total);
-  }, [total])
+import { toast } from "react-toastify";
+import { FaCartArrowDown, FaShoppingBag } from "react-icons/fa";
+import listProduct from "../../data/product";
+const FavoritePage = () => {
+  const { favoriteItems,addToCart,isLogin,removeFromFavorite } = useCart();
+  const handleAddToCart = (id) => {
+      const product = listProduct.find((item)=> item.id === id)
+      if(isLogin){
+        addToCart(product, 1);
+        toast.success("Add product successfully !", {
+          autoClose : 1500,
+          onClose : () => {
+            removeFromFavorite(id);
+          }
+        });
+      }else {
+        toast.warning("You need to login to continue using !", {
+          autoClose : 2000,
+        })
+      }
+    };
   return (
     <MainLayout>
       <section className="hero">
@@ -33,10 +47,10 @@ const CartPage = () => {
           <div className="row">
             <div className="col-lg-12 text-center">
               <div className="breadcrumb__text">
-                <h2>Shopping cart</h2>
+                <h2>Favorite product</h2>
                 <div className="breadcrumb__option">
                   <Link to="/">Home</Link>
-                  <span>Shopping cart</span>
+                  <span>Favorite</span>
                 </div>
               </div>
             </div>
@@ -53,23 +67,22 @@ const CartPage = () => {
                                 <tr>
                                     <th className="shoping__product">Products</th>
                                     <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
+                                    <th></th>                     
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {cartItems.length === 0 ? (
+                                {favoriteItems.length === 0 ? (
                                   <tr>
                                     <td colSpan="5">
-                                      <p>Giỏ hàng trống</p>
+                                      <p>Sản phẩm yêu thích trống !</p>
                                       <Link to="/shop" className="primary-btn">
                                         TIẾP TỤC MUA SẮM
                                       </Link>
                                     </td>
                                   </tr>
                                 ) : (
-                                  cartItems.map((item) => (
+                                  favoriteItems.map((item) => (
                                     <tr key={item.id}>
                                         <td className="shoping__cart__item">
                                             <img src={item.src} alt={item.name}/>
@@ -77,28 +90,14 @@ const CartPage = () => {
                                         </td>
                                         <td className="shoping__cart__price">
                                             {formatCurrency(item.price)}
-                                        </td>
-                                        <td className="shoping__cart__quantity">
-                                            <div className="quantity">
-                                                <div className="pro-qty">
-                                                    <span 
-                                                      className={item.quantity === 1 ? "disabled" : ""}
-                                                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                                                    >
-                                                      -
-                                                    </span>
-                                                    <input type="text" value={item.quantity} readOnly/>
-                                                    <span onClick={() => updateQuantity(item.id, item.quantity + 1)}>
-                                                      +
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </td>
+                                        </td>                                                                              
                                         <td className="shoping__cart__total">
-                                            {formatCurrency(item.price * item.quantity)}
+                                           <a href="#" className="primary-btn btn-add" onClick={() => handleAddToCart(item.id)}>
+                                            <FaCartArrowDown/>
+                                          </a>
                                         </td>
                                         <td className="shoping__cart__item__close">
-                                            <span onClick={() => removeFromCart(item.id)}>×</span>
+                                            <span onClick={() => removeFromFavorite(item.id)}>×</span>
                                         </td>
                                     </tr>
                                   ))
@@ -108,23 +107,10 @@ const CartPage = () => {
                     </div>
                 </div>
             </div>
-            <div className="row">
-                <div className="col-lg-6">
-                    <div className="shoping__checkout">
-                        <h5>Cart Total</h5>
-                        <ul>
-                            <li>Total <span>{formatCurrency(total)}</span></li>
-                        </ul>
-                        <Link to="/checkout" className="primary-btn">
-                          PROCEED TO CHECKOUT
-                        </Link>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
     </MainLayout>
   );
 };
 
-export default CartPage;
+export default FavoritePage;

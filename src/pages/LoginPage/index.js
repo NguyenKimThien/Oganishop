@@ -38,13 +38,17 @@ const LoginForm = () => {
       const user = users.find(
         (u) => u.Email === email && u.Password === password
       );
-      if (user != null) {  
+      if (user != null) {
+        login();  
         toast.success("Log in successfully !", {
           autoClose: 2000,
           onClose: () => {
             localStorage.setItem("userEmail", email);
-            login();
-            navigate(`/detail/${id}`);
+            if(id){
+              navigate(`/detail/${id}`);
+            }else{
+              navigate('/')
+            }
           }
         });
       } else {

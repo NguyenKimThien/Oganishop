@@ -38,7 +38,16 @@
                         background: #7fad39;
                         border-color: #7fad39;
 
-                        i {
+                        svg {
+                            color: #ffffff;
+                            transform: rotate(360deg);
+                        }
+                    }
+                    button {
+                        background: #7fad39;
+                        border-color: #7fad39;
+
+                        svg {
                             color: #ffffff;
                             transform: rotate(360deg);
                         }
@@ -46,6 +55,25 @@
                 }
 
                 a {
+                    font-size: 16px;
+                    color: #1c1c1c;
+                    height: 40px;
+                    width: 40px;
+                    line-height: 40px;
+                    text-align: center;
+                    border: 1px solid #ebebeb;
+                    background: #ffffff;
+                    display: block;
+                    border-radius: 50%;
+                    transition: all 0.5s;
+
+                    i {
+                        position: relative;
+                        transform: rotate(0);
+                        transition: all 0.3s;
+                    }
+                }
+                button {
                     font-size: 16px;
                     color: #1c1c1c;
                     height: 40px;

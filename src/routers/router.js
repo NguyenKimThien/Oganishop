@@ -7,6 +7,7 @@ import LoginForm from '../pages/LoginPage';
 import SignUpForm from '../pages/SignUp';
 import DetailPage from '../pages/DetailPage';
 import CartPage from '../pages/CartPage';
+import FavoritePage from '../pages/FavoritePage';
 
 const routes = [
     { path: "/", element: <HomePage />, namePage: "Home" },
@@ -17,6 +18,7 @@ const routes = [
     { path: "/signup", element: <SignUpForm/>, namePage: "Sign Up" },
     {path: "/detail/:id", element: <DetailPage/>, namePage: "Detail" },
     {path: "/cart", element: <CartPage/>, namePage: "Cart" },
+    {path: "/favorite", element: <FavoritePage/>, namePage: "Favorite" },
 ];
 
 

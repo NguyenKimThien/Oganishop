@@ -25,7 +25,9 @@ const DetailPage = () => {
   const handleAddToCart = () => {
     if(isLogin){
       addToCart(product, quanity);
-      toast.success("Add product successfully !");
+      toast.success("Add product successfully !", {
+        autoClose : 1500
+      });
     }else {
       localStorage.setItem('idToDetail',id)
       toast.warning("You need to login to continue using !", {

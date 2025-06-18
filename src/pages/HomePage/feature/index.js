@@ -4,7 +4,6 @@ import { formatCurrency } from "../../../utils/formatCurrency";
 import "./style.scss";
 import ItemProduct from "../../../components/card";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 const Feature = () => {
   const filterControl = [
     "All",
