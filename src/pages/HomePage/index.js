@@ -11,6 +11,7 @@ import banner from "../../assets/img/hero/banner.jpg";
 import CategorySlider from "./slide";
 import Feature from "./feature";
 import Blog from "./blog";
+import { Link } from "react-router-dom";
 const HomePage = () => {
   return (
     <MainLayout>
@@ -18,7 +19,7 @@ const HomePage = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-3">
-              <SideBar />
+              <SideBar active={true} />
             </div>
             <div className="col-lg-9">
               <Search />
@@ -30,9 +31,9 @@ const HomePage = () => {
                     100% Organic
                   </h2>
                   <p>Free Pickup and Delivery Available</p>
-                  <a href="#" className="primary-btn">
+                  <Link to='/shop' className="primary-btn">
                     SHOP NOW
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

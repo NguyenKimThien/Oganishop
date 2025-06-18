@@ -17,13 +17,29 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "../../../assets/img/logo.png";
 import imgLanguage from "../../../assets/img/language.png";
 import { useEffect, useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useCart } from "../../../context/CartContext";
-
+import { toast } from "react-toastify";
 const Header = () => {
   const [username, setUsername] = useState("");
   const [onMenu, setOnMenu] = useState(false);
   const location = useLocation();
+  const { cartItems } = useCart();
+  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  const isLogin = username === "";
+  const navigate = useNavigate();
+  const handleClickCart = () => {
+    if (isLogin) {
+      toast.warning("You need to login to continue using", {
+        autoClose: 2000,
+        onClose: () => {
+          navigate("/login");
+        },
+      });
+    } else {
+       navigate('/cart');
+    }
+  };
   useEffect(() => {
     const userEmail = localStorage.getItem("userEmail");
     if (userEmail) {
@@ -34,10 +50,6 @@ const Header = () => {
     setOnMenu((onMenu) => !onMenu);
     document.body.classList.add("over_hid");
   };
-  const { cartItems } = useCart();
-
-  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-
   return (
     <div>
       {/* <div id="preloder">
@@ -224,14 +236,14 @@ const Header = () => {
               <div className="header__cart">
                 <ul>
                   <li>
-                    <a href="#">
-                      <FaHeart /> <span>1</span>
-                    </a>
+                    <button>
+                      <FaHeart /> <span>0</span>
+                    </button>
                   </li>
-                  <li>
-                    <Link to="/cart">
+                  <li>                   
+                    <button onClick={handleClickCart}>
                       <FaShoppingBag /> <span>{totalItems}</span>
-                    </Link>
+                    </button>
                   </li>
                 </ul>
                 <div className="header__cart__price">

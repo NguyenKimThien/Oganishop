@@ -1,17 +1,25 @@
 import { FaHeart, FaRetweet, FaShoppingCart } from 'react-icons/fa'
 import './style.scss'
 import { Link } from 'react-router-dom'
+import SlideInOnScroll from '../SlideInOnScroll'
 const ItemProduct = (props) => {
     return(
-        <div className="featured__item">
+        <SlideInOnScroll>
+            <div className="featured__item">
             <div className="featured__item__pic set-bg">
-                <img src={props.src} alt="product" />
+                <img loading='lazy' src={props.src} alt="product" />
                 <ul className="featured__item__pic__hover">                                                                
-                    <li><a href="#"><FaHeart/></a></li>
-                    <Link to = {`/detail/${props.idToDetail}`}>
-                    <li><a href="#"><FaRetweet/></a></li>
-                    </Link>
-                    <li><a href="#"><FaShoppingCart/></a></li>
+                    <li>
+                        <Link to = "/"><FaHeart/></Link>
+                    </li>
+                    
+                    <li>
+                        <Link to = {`/detail/${props.idToDetail}`}><FaRetweet/> </Link>
+                    </li>
+                   
+                    <li>
+                        <Link to="/"><FaShoppingCart/></Link>
+                    </li>
                 </ul>
             </div>
             <div className="featured__item__text">
@@ -19,6 +27,7 @@ const ItemProduct = (props) => {
                 <h5>{props.price}</h5>
             </div>
         </div> 
+        </SlideInOnScroll>
     )
 
 }

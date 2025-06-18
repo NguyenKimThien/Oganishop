@@ -3,9 +3,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.scss'
 import { useState } from "react";
 import { FaBars, FaChevronDown } from 'react-icons/fa';
+import { useLocation } from 'react-router-dom';
 
-const SideBar = () => {
-    const [onMenu , setOnMenu] = useState(false);
+const SideBar = ({active = false}) => {
+    const [onMenu , setOnMenu] = useState(active);
     const OpenMenu = () => {
         setOnMenu(onMenu => !onMenu)
     }

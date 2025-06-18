@@ -2,26 +2,39 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.scss";
 import banner from "../../assets/img/breadcrumb.jpg";
 import MainLayout from "../../layouts/MainLayout";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import listProduct from "../../data/product";
-import { FaFacebook, FaInstagram, FaPinterest, FaStar, FaStarHalfAlt, FaTwitter } from "react-icons/fa";
+import { FaFacebook, FaHeart, FaInstagram, FaPinterest, FaStar, FaStarHalfAlt, FaTwitter } from "react-icons/fa";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { useState } from "react";
 import { useCart } from "../../context/CartContext";
+import { toast } from "react-toastify";
 const DetailPage = () => {
   const { id } = useParams();
   const product = listProduct.find((item) => item.id === parseInt(id));
   const [quanity,setQuanity] = useState(1);
+  const navigate = useNavigate();
   const redQuanity = () => {
     setQuanity(quanity => quanity - 1);
   }
   const incQuanity = () => {
     setQuanity(quanity => quanity + 1);
   }
-  const { addToCart } = useCart();
+  const { addToCart,isLogin } = useCart();
+  
   const handleAddToCart = () => {
-    addToCart(product, quanity);
-    alert('Sản phẩm đã được thêm vào giỏ hàng!');
+    if(isLogin){
+      addToCart(product, quanity);
+      toast.success("Add product successfully !");
+    }else {
+      localStorage.setItem('idToDetail',id)
+      toast.warning("You need to login to continue using !", {
+        autoClose : 2000,
+        onClose : () => {
+          navigate('/login');
+        }
+      })
+    }
   };
   return (
     <MainLayout>
@@ -78,11 +91,11 @@ const DetailPage = () => {
                     </div>
                   </div>
                 </div>
-                <a href="#" className="primary-btn" onClick={handleAddToCart}>
+                <a href="#" className="primary-btn btn-add" onClick={handleAddToCart}>
                   ADD TO CARD
                 </a>
                 <a href="#" className="heart-icon">
-                  <span className="icon_heart_alt"></span>
+                  <FaHeart/>
                 </a>
                 <ul>
                   <li>

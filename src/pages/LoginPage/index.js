@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import "./style.scss";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { useCart } from "../../context/CartContext";
+import { toast } from "react-toastify";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const navigate  = useNavigate();
+  const id = localStorage.getItem('idToDetail');
+  const { login } = useCart();
 
   const validate = () => {
     const newErrors = {};
@@ -33,9 +38,15 @@ const LoginForm = () => {
       const user = users.find(
         (u) => u.Email === email && u.Password === password
       );
-      if (user != null) {
-        localStorage.setItem("userEmail", email);
-        window.location.href = "/";
+      if (user != null) {  
+        toast.success("Log in successfully !", {
+          autoClose: 2000,
+          onClose: () => {
+            localStorage.setItem("userEmail", email);
+            login();
+            navigate(`/detail/${id}`);
+          }
+        });
       } else {
         errors.userErr =
           "Thông tin đăng nhập không chính xác ! Vui lòng kiểm tra lại.";

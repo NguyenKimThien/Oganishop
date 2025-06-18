@@ -8,8 +8,6 @@ import SignUpForm from '../pages/SignUp';
 import DetailPage from '../pages/DetailPage';
 import CartPage from '../pages/CartPage';
 
-// Import your page components
-
 const routes = [
     { path: "/", element: <HomePage />, namePage: "Home" },
     { path: "/shop", element: <ShopPage />, namePage: "Shop" },

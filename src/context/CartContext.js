@@ -4,6 +4,12 @@ const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
+  const [isLogin, setIsLogin] = useState(false);
+  const login = () => setIsLogin(true);
+  const logout = () => {
+      setIsLogin(false);
+      localStorage.removeItem('users')
+  }
 
   const addToCart = (product, quantity) => {
     setCartItems((prevItems) => {
@@ -43,6 +49,9 @@ export const CartProvider = ({ children }) => {
     addToCart,
     updateQuantity,
     removeFromCart,
+    login,
+    logout,
+    isLogin,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

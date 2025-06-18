@@ -1,5 +1,5 @@
-import { FaPhone } from 'react-icons/fa';
-import './style.scss'
+import { FaPhone } from "react-icons/fa";
+import "./style.scss";
 const Search = () => {
   return (
     <div className="hero__search">
@@ -9,7 +9,13 @@ const Search = () => {
             All Categories
             <span className="arrow_carrot-down"></span>
           </div>
-          <input type="text" placeholder="What do yo u need?" />
+          <input list="category-options" type="text" placeholder="What do yo u need?" />
+          <datalist id="category-options">
+            <option value="organes" />
+            <option value="fresh meat" />
+            <option value="vegetables" />
+            <option value="fastfood" />
+          </datalist>
           <button type="submit" className="site-btn">
             SEARCH
           </button>
@@ -17,7 +23,7 @@ const Search = () => {
       </div>
       <div className="hero__search__phone">
         <div className="hero__search__phone__icon">
-          <FaPhone/>
+          <FaPhone />
         </div>
         <div className="hero__search__phone__text">
           <h5>+65 11.188.888</h5>
