@@ -4,10 +4,10 @@ import SideBar from "../../components/sidebar";
 import Search from "../../components/search";
 import './style.scss';
 import { formatCurrency } from "../../utils/formatCurrency";
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import { toast } from "react-toastify";
-import { FaCartArrowDown, FaShoppingBag } from "react-icons/fa";
+import { FaCartArrowDown } from "react-icons/fa";
 import listProduct from "../../data/product";
 const FavoritePage = () => {
   const { favoriteItems,addToCart,isLogin,removeFromFavorite } = useCart();

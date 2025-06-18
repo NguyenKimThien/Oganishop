@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.scss";
 import banner from "../../assets/img/breadcrumb.jpg";
 import MainLayout from "../../layouts/MainLayout";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import listProduct from "../../data/product";
 import { FaFacebook, FaHeart, FaInstagram, FaPinterest, FaStar, FaStarHalfAlt, FaTwitter } from "react-icons/fa";
 import { formatCurrency } from "../../utils/formatCurrency";
@@ -20,7 +20,7 @@ const DetailPage = () => {
   const incQuanity = () => {
     setQuanity(quanity => quanity + 1);
   }
-  const { addToCart,isLogin } = useCart();
+  const { addToCart,isLogin,addToFavorite } = useCart();
   
   const handleAddToCart = () => {
     if(isLogin){
@@ -38,6 +38,9 @@ const DetailPage = () => {
       })
     }
   };
+  const handleAddToFavorite = () => {
+      addToFavorite(product)
+  }
   return (
     <MainLayout>
       <section className="breadcrumb-section set-bg">
@@ -96,7 +99,7 @@ const DetailPage = () => {
                 <a href="#" className="primary-btn btn-add" onClick={handleAddToCart}>
                   ADD TO CARD
                 </a>
-                <a href="#" className="heart-icon">
+                <a href="#" className="heart-icon" onClick={handleAddToFavorite}>
                   <FaHeart/>
                 </a>
                 <ul>

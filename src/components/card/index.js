@@ -1,13 +1,17 @@
 import { FaHeart, FaRetweet, FaShoppingCart } from "react-icons/fa";
 import "./style.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SlideInOnScroll from "../SlideInOnScroll";
 import { useCart } from "../../context/CartContext";
 import listProduct from "../../data/product";
 import { toast } from "react-toastify";
 const ItemProduct = (props) => {
   const { addToCart, addToFavorite } = useCart();
+  const navigate = useNavigate();
   const product = listProduct.find((item) => item.id === props.idToDetail);
+  const handleClickCard = () => {
+      navigate(`/detail/${props.idToDetail}`)
+  }
   const handleAddToCart = () => {
     addToCart(product, 1);
     toast.success("Add product successfully !", {

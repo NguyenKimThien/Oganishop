@@ -7,9 +7,7 @@ import {
   FaPinterestP,
   FaUser,
   FaEnvelope,
-  FaPrint,
   FaArrowDown,
-  FaArrowAltCircleDown,
   FaBars,
 } from "react-icons/fa";
 import "./style.scss";
